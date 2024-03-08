@@ -18,5 +18,9 @@ app.use(cors(corsOptions));
 app.use('/', require('./routes/index'));
 
 app.listen(PORT, () => {
+<<<<<<< HEAD
    loggerHTTP.logger.info(`Start server port: ${PORT}`);
+=======
+ loggerHTTP.logger.info(`Start server port: ${PORT}`);
+>>>>>>> 4f9880c (update prettier style)
 });
