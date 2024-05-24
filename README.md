@@ -1,4 +1,4 @@
-# How to start ?
+# How to start
 1. env.example -> .env Add all field.
 2. GITHUB_PERSONAL_TOKEN get with [github settings](https://github.com/settings/tokens?type=beta)
    This is important, GitHub has a limit of 60 requests per hour without a token. Check it out [here](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users).
