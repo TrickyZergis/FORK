@@ -6,7 +6,7 @@
 
 ![topContributors](https://github.com/Sega-128/topContributor/assets/52979646/9e75a672-2c38-4ffd-8914-a32da3698fd9)
 
-# 1  Here is a list of shared contributors over approximately 
+# Here is a list of shared contributors over approximately 
 a year (this is from GitHub documentation).
 1. [ api link repositoriesContributedTo graphQL](https://docs.github.com/en/graphql/reference/objects#repositoryconnection)
 2. [discusion for 1 yesr](https://github.com/orgs/community/discussions/24350)
