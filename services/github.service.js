@@ -93,9 +93,14 @@ class Github {
      const fullName = `${repoOwner}_${repositoryName}`;
 
      if (countsRepository[fullName]) {
-     
+      countsRepository[fullName].count = 1;
      } else {
-     
+      countsRepository[fullName] = {
+       count: 1,
+       url,
+       owner: repoOwner,
+       name: repositoryName,
+      };
      }
     }
    });
@@ -153,7 +158,7 @@ class Github {
    contributors.push(...data);
    if (data.length === 0 || data.length < 100) break;
 
-   currentPage;
+   currentPage.count = 1;
   }
   return contributors.filter((_user) => {
    return _user.type === 'User'; // Виправлено: Замінено '==' на '==='
