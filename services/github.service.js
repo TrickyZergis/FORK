@@ -34,9 +34,9 @@ class Github {
 
   const countContributors = {};
   const queueGetuserRepoUniq = Fastq.promise(async (task) => {
-   const { contributors: localContributors, owner, repo: _repo, url } = await task();
+   const { contributors: localContributors, owner: repoOwner, repo: _repo, url } = await task();
 
-   const fullName = `${owner}_${_repo}`;
+   const fullName = `${repoOwner}_${_repo}`;
 
    localContributors.forEach((obj) => {
     const { login } = obj;
@@ -47,7 +47,7 @@ class Github {
       countContributors[fullName] = {
        count: 1,
        url,
-       owner,
+       owner: repoOwner,
        name: _repo,
       };
      }
@@ -57,11 +57,11 @@ class Github {
 
   for (const repositoryTop of topDuplicates) {
    queueGetuserRepoUniq.push(async () => {
-    const { owner, name } = repositoryTop;
+    const { owner: repoOwner, name } = repositoryTop;
 
-    const localContributors = await this.#getUserContributors({ repo: name, owner });
+    const localContributors = await this.#getUserContributors({ repo: name, owner: repoOwner });
 
-    return { contributors: localContributors, owner, repo: name, url: repositoryTop.url };
+    return { contributors: localContributors, owner: repoOwner, repo: name, url: repositoryTop.url };
    });
   }
 
@@ -86,11 +86,11 @@ class Github {
    repos.forEach((obj) => {
     const url = new URL(obj.url);
 
-    const owner = url.pathname.split('/')[1];
+    const repoOwner = url.pathname.split('/')[1];
     const repositoryName = url.pathname.split('/')[2];
     // TODO refactor
     if (repositoryName !== repo) {
-     const fullName = `${owner}_${repositoryName}`;
+     const fullName = `${repoOwner}_${repositoryName}`;
 
      if (countsRepository[fullName]) {
       countsRepository[fullName].count++;
@@ -98,7 +98,7 @@ class Github {
       countsRepository[fullName] = {
        count: 1,
        url,
-       owner,
+       owner: repoOwner,
        name: repositoryName,
       };
      }
@@ -154,11 +154,11 @@ class Github {
   const contributors = [];
 
   while (true) {
-   let page = 0;
-   const data = await GithubAdapter.getContributors({ page, repo, owner, type: 'all' });
+   let currentPage = 0;
+   const data = await GithubAdapter.getContributors({ page: currentPage, repo, owner, type: 'all' });
    contributors.push(...data);
    if (data.length === 0 || data.length < 100) break;
-   page++;
+   currentPage++;
   }
 
   return contributors.filter((_user) => {
