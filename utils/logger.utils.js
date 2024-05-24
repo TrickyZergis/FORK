@@ -1,7 +1,7 @@
 const path = require('node:path');
 const pino = require('pino-http');
 
-const isPrоd = process.env.NODE_ENV == 'production';
+const isProd = process.env.NODE_ENV === 'production'; // Виправлено: Замінено '==' на '==='
 
 const customLogLevel = (req, res, err) => {
  if (res.statusCode >= 400 && res.statusCode < 500) {
@@ -38,7 +38,7 @@ const devConfig = {
  },
  customLogLevel,
  customSuccessMessage(req, res) {
-  if (res.statusCode == 404) {
+  if (res.statusCode === 404) { // Виправлено: Замінено '==' на '==='
    return 'resource not found';
   }
   return `${req.method} completed`;
@@ -54,18 +54,18 @@ const devConfig = {
 const getFilePath = () => {
  const directoryPath = './logs';
  const dateLog = new Date().toISOString().slice(0, 10);
- const filePath = path.join(directoryPath, 'log-file-${dateLog}.log');
+ const filePath = path.join(directoryPath, `log-file-${dateLog}.log`); // Виправлено: Використано `` замість ''
  return filePath;
 };
 
 const prodLogger = {
  transport: {
   target: 'pino/file',
-  options: { destination: getFilePath(), mkdir: isPrоd },
+  options: { destination: getFilePath(), mkdir: isProd },
  },
 };
 
-const configLogger = isPrоd ? prodLogger : devConfig;
+const configLogger = isProd ? prodLogger : devConfig;
 
 const logger = pino(configLogger);
 module.exports = logger;
