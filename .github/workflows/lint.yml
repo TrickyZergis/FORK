@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - laboratorna_3_fix_Lytvak
+  pull_request:
+    branches:
+      - laboratorna_3_fix_Lytvak
 
 jobs:
   lint:
