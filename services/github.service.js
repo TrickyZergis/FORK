@@ -150,11 +150,10 @@ class Github {
  }
 
  async #getUserContributors({ owner, repo }) {
-  const page = 1;
+  let currentPage = 0;
   const contributors = [];
 
   while (true) {
-   let currentPage = 0;
    const data = await GithubAdapter.getContributors({ page: currentPage, repo, owner, type: 'all' });
    contributors.push(...data);
    if (data.length === 0 || data.length < 100) break;
@@ -162,9 +161,10 @@ class Github {
   }
 
   return contributors.filter((_user) => {
-   return _user.type === 'User'; // Виправлено: Замінено '==' на '==='
+   return _user.type === 'User'; // Виправлено: Замінено '==' на
+   '==='
   });
  }
 }
 
-module.exports = { Github: new Github() };
+module.exports = { Github };
