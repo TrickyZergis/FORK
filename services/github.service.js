@@ -93,14 +93,9 @@ class Github {
      const fullName = `${repoOwner}_${repositoryName}`;
 
      if (countsRepository[fullName]) {
-      countsRepository[fullName].count;
+     
      } else {
-      countsRepository[fullName] = {
-       count: 1,
-       url,
-       owner: repoOwner,
-       name: repositoryName,
-      };
+     
      }
     }
    });
@@ -108,13 +103,11 @@ class Github {
    return true;
   }, 20);
 
-for (const contributor of userContributors) {
-  queueGetuserRepo.push(async () => {
+  for (const contributor of userContributors) {
+   queueGetuserRepo.push(async () => {
     return this.#getUserRepo(contributor.login);
-  });
-}
-
-
+   });
+  }
 
   await new Promise((resolve) => {
    queueGetuserRepo.drain = resolve;
@@ -152,7 +145,7 @@ for (const contributor of userContributors) {
  }
 
  async #getUserContributors({ owner, repo }) {
-  let currentPage = 0;
+  const currentPage = 0;
   const contributors = [];
 
   while (true) {
