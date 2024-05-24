@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    environment:
+       - PORT=${PORT}
+  node:
+    build: .
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    # command: pm2-docker start server.js -i max
+networks:
+    nodes:
+        external: false
