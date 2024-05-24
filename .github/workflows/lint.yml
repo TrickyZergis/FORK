@@ -2,13 +2,19 @@ name: Lint
 run-name: ${{ github.actor }} Testing Github Lint Action
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - run: npm install
-    - run: npm lint
-    - run: npm test
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '14'
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Run linting
+          run: npm run lint
