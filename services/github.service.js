@@ -161,8 +161,7 @@ class Github {
   }
 
   return contributors.filter((_user) => {
-   return _user.type === 'User'; // Виправлено: Замінено '==' на
-   '==='
+   return _user.type === 'User'; // Виправлено: Замінено '==' на '==='
   });
  }
 }
