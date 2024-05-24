@@ -93,7 +93,7 @@ class Github {
      const fullName = `${repoOwner}_${repositoryName}`;
 
      if (countsRepository[fullName]) {
-      
+      countsRepository[fullName].count;
      } else {
       countsRepository[fullName] = {
        count: 1,
@@ -160,7 +160,7 @@ for (const contributor of userContributors) {
    contributors.push(...data);
    if (data.length === 0 || data.length < 100) break;
 
-  
+   currentPage;
   }
   return contributors.filter((_user) => {
    return _user.type === 'User'; // Виправлено: Замінено '==' на '==='
