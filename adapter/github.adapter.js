@@ -26,38 +26,38 @@ class Github {
  constructor() {
   this.client =  gotClient;
  }
-getContributors({ owner, repo, page = 1, perPage = 100, type }) {
+ async getContributors({ owner, repo, page = 1, perPage = 100, type }) {
   try {
-   const response = await this.client.get(`repos/${owner}/${repo}/contributors`, {
-    searchParams: { per_page: perPage, page, type },
-    method: "GET",
-    responseType: "json",
-   });
+    const response = await this.client.get(`repos/${owner}/${repo}/contributors`, {
+      searchParams: { per_page: perPage, page, type },
+      method: "GET",
+      responseType: "json",
+    });
 
-   const data = response.body;
-   return data;
+    const data = response.body;
+    return data;
   } catch (error) {
-   logger.error(error);
-
-   throw new Error("Service is temporarily unavailable, please try again later");
+    logger.error(error);
+    throw new Error("Service is temporarily unavailable, please try again later");
   }
- }
-postGraphQLQuery({ query }) {
+}
+
+async postGraphQLQuery({ query }) {
   try {
-   const response = await this.client.post("graphql", {
-    json: {
-     querys,
-    },
-        responseType: "json",
-   });
+    const response = await this.client.post("graphql", {
+      json: {
+        querys,
+      },
+      responseType: "json",
+    });
 
-   return response.body;
+    return response.body;
   } catch (error) {
-   logger.error(error);
-
-   throw new Error("Service is temporarily unavailable, please try again later");
+    logger.error(error);
+    throw new Error("Service is temporarily unavailable, please try again later");
   }
- }
+}
+
 }
 
 module.exports = { Github: new Githubs() };
