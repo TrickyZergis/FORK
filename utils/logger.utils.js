@@ -38,7 +38,8 @@ const devConfig = {
  },
  customLogLevel,
  customSuccessMessage(req, res) {
-  if (res.statusCode === 404) { // Виправлено: Замінено '==' на '==='
+  if (res.statusCode === 404) {
+   // Виправлено: Замінено '==' на '==='
    return 'resource not found';
   }
   return `${req.method} completed`;
