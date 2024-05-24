@@ -145,6 +145,7 @@ class Github {
       }
     `;
 
+<<<<<<< HEAD
          const data = await GithubAdapter.postGraphQLQuery({ query });
          return data.data?.user.repositoriesContributedTo.nodes || [];
       } catch (error) {
@@ -167,6 +168,30 @@ class Github {
          return _user.type === 'User';
       });
    }
+=======
+   const data = await GithubAdapter.postGraphQLQuery({ query });
+   return data.data?.user.repositoriesContributedTo.nodes || [];
+  } catch (error) {
+   throw new Error(`Failed to fetch repositories for ${username}: ${error.message}`);
+  }
+ }
+
+ async #getUserContributors({ repo, owner }) {
+  let page = 1;
+  const contributors = [];
+
+  while (true) {
+   const data = await GithubAdapter.getContributors({ page, repo, owner, type: 'all' });
+   contributors.push(...data);
+   if (data.length === 0 || data.length < 100) break;
+   page += 1;
+  }
+
+  return contributors.filter((_user) => {
+   return _user.type === 'User';
+  });
+ }
+>>>>>>> origin/laboratorna_2_task_merge_2
 }
 
 module.exports = { Github: new Github() };
