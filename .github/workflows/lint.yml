@@ -1,6 +1,12 @@
 name: Lint
 run-name: ${{ github.actor }} Testing Github Lint Action
-on: [push]
+on:
+  push:
+    branches:
+      - laboratorna_3_fix_Lytvak
+  pull_request:
+    branches:
+      - laboratorna_3_fix_Lytvak
 jobs:
    lint:
     runs-on: ubuntu-latest
